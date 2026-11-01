@@ -1,6 +1,6 @@
 # Indicadores de control y estándares de desempeño
 
-Se aplica el ciclo de control de la Unidad 4: **establecer estándares → medir → comparar → corregir y retroalimentar**.
+Se aplica el ciclo de control de la Unidad 4:**establecer estándares → medir → comparar → corregir y retroalimentar**.
 Los estándares provienen de las metas M1–M6 (Entrega 2); KI-8 y KI-9 son estándares internos del equipo.
 
 | ID | Indicador y fórmula | Estándar | Medición (fuente · frecuencia · responsable) | Acción correctiva |
