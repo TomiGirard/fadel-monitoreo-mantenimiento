@@ -27,8 +27,7 @@ El caso, el análisis sistémico (TGS), el FODA, las metas y el cronograma está
 
 | Integrante | Rol en el proyecto |
 |---|---|
-| Tomas Agustin Girard | Líder de proyecto y analista funcional (LP)] |
-| [COMPLETAR] | [COMPLETAR] |
+| Tomas Agustin Girard | Líder de proyecto y analista funcional (LP) |
 
 Grupo n.º 12 · Docente titular: Prof. Gabriela Martínez · Tutores: Prof. Carolina Bruno, Prof. Mario Raúl López, Prof. Andrea Ramos.
 
@@ -75,7 +74,7 @@ Grupo n.º 12 · Docente titular: Prof. Gabriela Martínez · Tutores: Prof. Car
 Tipos usados: `docs`, `feat`, `fix`, `refactor`, `test`, `chore`.
 
 **Pull Requests:** cada rama se integra a `main` con un PR que explica *qué* se cambió, *por qué* y *cómo evaluarlo* (plantilla en `.github/`). Se requiere **al menos una revisión de un par** antes del *merge*.
-Evidencia: PR [#1](https://github.com/[USUARIO]/[REPOSITORIO]/pull/1) – [COMPLETAR título y revisor].
+Evidencia: PR [#1](TomiGirard/fadel-monitoreo-mantenimiento).
 
 ## 6. Gestión del backlog
 
@@ -100,9 +99,9 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 **Limitaciones y errores detectados en el trabajo con IA**
 
 - La IA no puede crear el repositorio, el tablero ni los Pull Requests: eso lo realizó el grupo.
-- El diagrama se generó por código y no con Bizagi; [COMPLETAR: verificado/importado en bpmn.io o Bizagi el __/__].
+- El diagrama se generó por código y no con Bizagi; lo abrí y verifiqué en bpmn.io el 01/11/2026.
 - El plazo de espera del proveedor (**48 h**) y la prioridad de las historias son **supuestos de planeación** a validar con Fadel S.A.; no son datos de la empresa.
-- Responsabilidad intelectual: el contenido fue revisado y es asumido por el grupo.
+- Responsabilidad intelectual: el contenido fue revisado y es asumido por el alumno.
 
 ## 9. Referencias
 
