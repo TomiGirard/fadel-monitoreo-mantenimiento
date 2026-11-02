@@ -90,14 +90,14 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 
 | # | Prompt (resumen) | Por qué se pidió así | Qué devolvió la IA | Corrección humana efectuada |
 |---|---|---|---|---|
-| 1 | Se adjuntó la consigna de la Entrega 4, las Entregas 1–3 y el material de cátedra (BPMN, Git/GitHub, Jira, máquinas de estado) y se pidió armar la entrega. | Dar la consigna y el material como fuente obliga a respetar la notación y las reglas de la cátedra (verbos en infinitivo, compuertas con pregunta, mensajes solo entre pools) y reduce invenciones. | Borrador del BPMN, README, historias de usuario, indicadores y estructura del PDF. | Renombré tareas y cambié el orden de compuertas. |
+| 1 | Se adjuntó la consigna de la Entrega 4, las Entregas 1–3 y el material de cátedra (BPMN, Git/GitHub, Jira, máquinas de estado) y se pidió armar la entrega. | Dar la consigna y el material como fuente obliga a respetar la notación y las reglas de la cátedra (verbos en infinitivo, compuertas con pregunta, mensajes solo entre pools) y reduce invenciones. | Borrador del BPMN, README, historias de usuario, indicadores y estructura del PDF. | Verifiqué el nombre de las tareas y el orden de las compuertas. |
 | 2 | Se pidió que los indicadores se derivaran de las metas M1–M6 de la Entrega 2 y del ciclo de control de la Unidad 4. | Evitar indicadores genéricos y mantener coherencia con lo ya presentado. | Tabla de indicadores con fórmula, estándar y acción correctiva. | Verifiqué la tabla de indicadores. |
 | 3 | Se pidió redactar tres historias de usuario en formato formal. | Las historias de las entregas anteriores no estaban redactadas en formato formal. | Tres historias alineadas con los Sprints 2, 3 y 4 del cronograma. | Confirmé que coinciden con las historias definidas. |
 
 **Limitaciones y errores detectados en el trabajo con IA**
 
 - La IA no puede crear el repositorio, el tablero ni los Pull Requests: eso lo realizó el grupo.
-- El diagrama se generó por código y no con Bizagi; lo abrí y verifiqué en bpmn.io el 01/11/2026.
+- El diagrama se generó por código y no con Bizagi.
 - El plazo de espera del proveedor (**48 h**) y la prioridad de las historias son **supuestos de planeación** a validar con Fadel S.A.; no son datos de la empresa.
 - Responsabilidad intelectual: el contenido fue revisado y es asumido por el alumno.
 
