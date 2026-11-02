@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_Fadel" targetNamespace="http://fadel.example/tpi">
+<bpmn:collaboration id="Collab_1">
+<bpmn:participant id="Part_Sens" name="Equipo monitoreado (sensores y PLC de la planta)"/>
+<bpmn:participant id="Part_Fadel" name="Fadel S.A. - Planta Pronunciamiento" processRef="Process_Fadel"/>
+<bpmn:participant id="Part_Prov" name="Proveedor de repuestos"/>
+<bpmn:messageFlow id="m1" name="Lectura (valor, unidad, fecha y hora)" sourceRef="Part_Sens" targetRef="S1"/>
+<bpmn:messageFlow id="m2" name="Pedido de repuesto" sourceRef="C1" targetRef="Part_Prov"/>
+<bpmn:messageFlow id="m3" name="Aviso de entrega del repuesto" sourceRef="Part_Prov" targetRef="CT"/>
+</bpmn:collaboration>
+<bpmn:process id="Process_Fadel" isExecutable="false">
+<bpmn:laneSet id="LaneSet_1">
+<bpmn:lane id="L1" name="Jefatura de Mantenimiento">
+<bpmn:flowNodeRef>J1</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="L2" name="Técnico de Mantenimiento">
+<bpmn:flowNodeRef>T1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>T2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G3</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>T4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>T5</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="L3" name="Sistema de monitoreo (automatizado)">
+<bpmn:flowNodeRef>S1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>S2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>E1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>S4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>S5</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>S6</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>S7</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G5</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>E2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>DOref_Alerta</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="L4" name="Compras y Pañol">
+<bpmn:flowNodeRef>C1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>EB</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>CT</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>C2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>TM</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>C3</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>E4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>P1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>C4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>E3</bpmn:flowNodeRef>
+</bpmn:lane>
+</bpmn:laneSet>
+<bpmn:startEvent id="S1" name="Lectura de sensor recibida"><bpmn:outgoing>f1</bpmn:outgoing><bpmn:messageEventDefinition id="S1_def"/></bpmn:startEvent>
+<bpmn:businessRuleTask id="S2" name="Registrar y evaluar la lectura contra los umbrales"><bpmn:incoming>f1</bpmn:incoming><bpmn:outgoing>f2</bpmn:outgoing></bpmn:businessRuleTask>
+<bpmn:exclusiveGateway id="G1" name="¿Lectura fuera de umbral?"><bpmn:incoming>f2</bpmn:incoming><bpmn:outgoing>f3</bpmn:outgoing><bpmn:outgoing>f4</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:endEvent id="E1" name="Lectura normal: sin alerta"><bpmn:incoming>f3</bpmn:incoming></bpmn:endEvent>
+<bpmn:scriptTask id="S4" name="Generar alerta y asignar criticidad"><bpmn:incoming>f4</bpmn:incoming><bpmn:outgoing>f5</bpmn:outgoing><bpmn:dataOutputAssociation id="DOA1"><bpmn:targetRef>DOref_Alerta</bpmn:targetRef></bpmn:dataOutputAssociation></bpmn:scriptTask>
+<bpmn:exclusiveGateway id="G2" name="¿Equipo crítico?"><bpmn:incoming>f5</bpmn:incoming><bpmn:outgoing>f6</bpmn:outgoing><bpmn:outgoing>f7</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:userTask id="J1" name="Autorizar prioridad y recursos de la reparación"><bpmn:incoming>f6</bpmn:incoming><bpmn:outgoing>f8</bpmn:outgoing></bpmn:userTask>
+<bpmn:sendTask id="S5" name="Notificar al técnico de guardia"><bpmn:incoming>f7</bpmn:incoming><bpmn:incoming>f8</bpmn:incoming><bpmn:outgoing>f9</bpmn:outgoing></bpmn:sendTask>
+<bpmn:userTask id="T1" name="Confirmar recepción y abrir orden de mantenimiento"><bpmn:incoming>f9</bpmn:incoming><bpmn:outgoing>f10</bpmn:outgoing></bpmn:userTask>
+<bpmn:userTask id="T2" name="Diagnosticar la falla"><bpmn:incoming>f10</bpmn:incoming><bpmn:outgoing>f11</bpmn:outgoing></bpmn:userTask>
+<bpmn:exclusiveGateway id="G3" name="¿Requiere repuesto?"><bpmn:incoming>f11</bpmn:incoming><bpmn:outgoing>f12</bpmn:outgoing><bpmn:outgoing>f13</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:serviceTask id="S6" name="Verificar stock del repuesto"><bpmn:incoming>f12</bpmn:incoming><bpmn:outgoing>f14</bpmn:outgoing></bpmn:serviceTask>
+<bpmn:exclusiveGateway id="G4" name="¿Hay stock del repuesto?"><bpmn:incoming>f14</bpmn:incoming><bpmn:outgoing>f15</bpmn:outgoing><bpmn:outgoing>f16</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:sendTask id="C1" name="Solicitar el repuesto al proveedor"><bpmn:incoming>f16</bpmn:incoming><bpmn:outgoing>f17</bpmn:outgoing></bpmn:sendTask>
+<bpmn:eventBasedGateway id="EB" name=""><bpmn:incoming>f17</bpmn:incoming><bpmn:outgoing>f18</bpmn:outgoing><bpmn:outgoing>f21</bpmn:outgoing></bpmn:eventBasedGateway>
+<bpmn:intermediateCatchEvent id="CT" name="Repuesto recibido"><bpmn:incoming>f18</bpmn:incoming><bpmn:outgoing>f19</bpmn:outgoing><bpmn:messageEventDefinition id="CT_def"/></bpmn:intermediateCatchEvent>
+<bpmn:userTask id="C2" name="Registrar el ingreso del repuesto al stock"><bpmn:incoming>f19</bpmn:incoming><bpmn:outgoing>f20</bpmn:outgoing></bpmn:userTask>
+<bpmn:intermediateCatchEvent id="TM" name="Pasan 48 h sin entrega"><bpmn:incoming>f21</bpmn:incoming><bpmn:outgoing>f22</bpmn:outgoing><bpmn:timerEventDefinition id="TM_def"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">PT48H</bpmn:timeDuration></bpmn:timerEventDefinition></bpmn:intermediateCatchEvent>
+<bpmn:userTask id="C3" name="Informar la demora a la Jefatura de Mantenimiento"><bpmn:incoming>f22</bpmn:incoming><bpmn:outgoing>f23</bpmn:outgoing></bpmn:userTask>
+<bpmn:endEvent id="E4" name="Demora escalada a la Jefatura"><bpmn:incoming>f23</bpmn:incoming></bpmn:endEvent>
+<bpmn:manualTask id="P1" name="Entregar el repuesto al técnico"><bpmn:incoming>f15</bpmn:incoming><bpmn:incoming>f20</bpmn:incoming><bpmn:outgoing>f24</bpmn:outgoing></bpmn:manualTask>
+<bpmn:manualTask id="T4" name="Ejecutar la reparación y probar el equipo"><bpmn:incoming>f13</bpmn:incoming><bpmn:incoming>f24</bpmn:incoming><bpmn:outgoing>f25</bpmn:outgoing></bpmn:manualTask>
+<bpmn:userTask id="T5" name="Cerrar la orden de mantenimiento"><bpmn:incoming>f25</bpmn:incoming><bpmn:outgoing>f26</bpmn:outgoing><bpmn:dataOutputAssociation id="DOA2"><bpmn:targetRef>DOref_Orden</bpmn:targetRef></bpmn:dataOutputAssociation></bpmn:userTask>
+<bpmn:scriptTask id="S7" name="Actualizar stock y calcular tiempo de reparación (MTTR)"><bpmn:incoming>f26</bpmn:incoming><bpmn:outgoing>f27</bpmn:outgoing></bpmn:scriptTask>
+<bpmn:exclusiveGateway id="G5" name="¿Stock por debajo del mínimo?"><bpmn:incoming>f27</bpmn:incoming><bpmn:outgoing>f28</bpmn:outgoing><bpmn:outgoing>f29</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:endEvent id="E2" name="Orden cerrada: equipo operativo"><bpmn:incoming>f28</bpmn:incoming></bpmn:endEvent>
+<bpmn:userTask id="C4" name="Generar solicitud de compra interna"><bpmn:incoming>f29</bpmn:incoming><bpmn:outgoing>f30</bpmn:outgoing></bpmn:userTask>
+<bpmn:endEvent id="E3" name="Orden cerrada y reposición solicitada"><bpmn:incoming>f30</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="f1" sourceRef="S1" targetRef="S2"/>
+<bpmn:sequenceFlow id="f2" sourceRef="S2" targetRef="G1"/>
+<bpmn:sequenceFlow id="f3" name="No" sourceRef="G1" targetRef="E1"/>
+<bpmn:sequenceFlow id="f4" name="Sí" sourceRef="G1" targetRef="S4"/>
+<bpmn:sequenceFlow id="f5" sourceRef="S4" targetRef="G2"/>
+<bpmn:sequenceFlow id="f6" name="Sí" sourceRef="G2" targetRef="J1"/>
+<bpmn:sequenceFlow id="f7" name="No" sourceRef="G2" targetRef="S5"/>
+<bpmn:sequenceFlow id="f8" sourceRef="J1" targetRef="S5"/>
+<bpmn:sequenceFlow id="f9" sourceRef="S5" targetRef="T1"/>
+<bpmn:sequenceFlow id="f10" sourceRef="T1" targetRef="T2"/>
+<bpmn:sequenceFlow id="f11" sourceRef="T2" targetRef="G3"/>
+<bpmn:sequenceFlow id="f12" name="Sí" sourceRef="G3" targetRef="S6"/>
+<bpmn:sequenceFlow id="f13" name="No" sourceRef="G3" targetRef="T4"/>
+<bpmn:sequenceFlow id="f14" sourceRef="S6" targetRef="G4"/>
+<bpmn:sequenceFlow id="f15" name="Sí" sourceRef="G4" targetRef="P1"/>
+<bpmn:sequenceFlow id="f16" name="No" sourceRef="G4" targetRef="C1"/>
+<bpmn:sequenceFlow id="f17" sourceRef="C1" targetRef="EB"/>
+<bpmn:sequenceFlow id="f18" sourceRef="EB" targetRef="CT"/>
+<bpmn:sequenceFlow id="f19" sourceRef="CT" targetRef="C2"/>
+<bpmn:sequenceFlow id="f20" sourceRef="C2" targetRef="P1"/>
+<bpmn:sequenceFlow id="f21" sourceRef="EB" targetRef="TM"/>
+<bpmn:sequenceFlow id="f22" sourceRef="TM" targetRef="C3"/>
+<bpmn:sequenceFlow id="f23" sourceRef="C3" targetRef="E4"/>
+<bpmn:sequenceFlow id="f24" sourceRef="P1" targetRef="T4"/>
+<bpmn:sequenceFlow id="f25" sourceRef="T4" targetRef="T5"/>
+<bpmn:sequenceFlow id="f26" sourceRef="T5" targetRef="S7"/>
+<bpmn:sequenceFlow id="f27" sourceRef="S7" targetRef="G5"/>
+<bpmn:sequenceFlow id="f28" name="No" sourceRef="G5" targetRef="E2"/>
+<bpmn:sequenceFlow id="f29" name="Sí" sourceRef="G5" targetRef="C4"/>
+<bpmn:sequenceFlow id="f30" sourceRef="C4" targetRef="E3"/>
+<bpmn:dataObject id="DO_Alerta" name="Alerta"/><bpmn:dataObjectReference id="DOref_Alerta" name="Alerta" dataObjectRef="DO_Alerta"/>
+<bpmn:dataObject id="DO_Orden" name="Orden de mantenimiento"/><bpmn:dataObjectReference id="DOref_Orden" name="Orden de mantenimiento" dataObjectRef="DO_Orden"/>
+<bpmn:textAnnotation id="A1"><bpmn:text>Equipo crítico: su falla detiene la línea o compromete la cadena de frío (campo es_critico).</bpmn:text></bpmn:textAnnotation>
+<bpmn:association id="As_A1" sourceRef="J1" targetRef="A1" associationDirection="None"/>
+<bpmn:textAnnotation id="A2"><bpmn:text>Meta M1: notificar al técnico en 30 s o menos desde que la lectura sale del umbral.</bpmn:text></bpmn:textAnnotation>
+<bpmn:association id="As_A2" sourceRef="S5" targetRef="A2" associationDirection="None"/>
+<bpmn:textAnnotation id="A3"><bpmn:text>Meta M6: reducir 20 % el MTTR. Si hubo repuesto, descuenta stock.</bpmn:text></bpmn:textAnnotation>
+<bpmn:association id="As_A3" sourceRef="S7" targetRef="A3" associationDirection="None"/>
+</bpmn:process>
+<bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
+<bpmndi:BPMNShape id="Part_Sens_di" bpmnElement="Part_Sens" isHorizontal="true"><dc:Bounds x="20" y="20" width="2298" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Part_Fadel_di" bpmnElement="Part_Fadel" isHorizontal="true"><dc:Bounds x="20" y="110" width="2298" height="680"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Part_Prov_di" bpmnElement="Part_Prov" isHorizontal="true"><dc:Bounds x="20" y="830" width="2298" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L1_di" bpmnElement="L1" isHorizontal="true"><dc:Bounds x="50" y="110" width="2268" height="110"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L2_di" bpmnElement="L2" isHorizontal="true"><dc:Bounds x="50" y="220" width="2268" height="170"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L3_di" bpmnElement="L3" isHorizontal="true"><dc:Bounds x="50" y="390" width="2268" height="200"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L4_di" bpmnElement="L4" isHorizontal="true"><dc:Bounds x="50" y="590" width="2268" height="200"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S1_di" bpmnElement="S1"><dc:Bounds x="133" y="438" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S2_di" bpmnElement="S2"><dc:Bounds x="220" y="424" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G1_di" bpmnElement="G1" isMarkerVisible="false"><dc:Bounds x="360" y="433" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="E1_di" bpmnElement="E1"><dc:Bounds x="365" y="518" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S4_di" bpmnElement="S4"><dc:Bounds x="452" y="424" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G2_di" bpmnElement="G2" isMarkerVisible="false"><dc:Bounds x="592" y="433" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="J1_di" bpmnElement="J1"><dc:Bounds x="568" y="134" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S5_di" bpmnElement="S5"><dc:Bounds x="684" y="424" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="T1_di" bpmnElement="T1"><dc:Bounds x="800" y="249" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="T2_di" bpmnElement="T2"><dc:Bounds x="916" y="249" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G3_di" bpmnElement="G3" isMarkerVisible="false"><dc:Bounds x="1056" y="258" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S6_di" bpmnElement="S6"><dc:Bounds x="1032" y="424" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G4_di" bpmnElement="G4" isMarkerVisible="false"><dc:Bounds x="1172" y="433" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="C1_di" bpmnElement="C1"><dc:Bounds x="1148" y="694" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="EB_di" bpmnElement="EB"><dc:Bounds x="1288" y="703" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="CT_di" bpmnElement="CT"><dc:Bounds x="1409" y="708" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="C2_di" bpmnElement="C2"><dc:Bounds x="1496" y="694" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="TM_di" bpmnElement="TM"><dc:Bounds x="1293" y="628" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="C3_di" bpmnElement="C3"><dc:Bounds x="1380" y="614" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="E4_di" bpmnElement="E4"><dc:Bounds x="1525" y="628" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P1_di" bpmnElement="P1"><dc:Bounds x="1612" y="614" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="T4_di" bpmnElement="T4"><dc:Bounds x="1728" y="249" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="T5_di" bpmnElement="T5"><dc:Bounds x="1844" y="249" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S7_di" bpmnElement="S7"><dc:Bounds x="1960" y="424" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G5_di" bpmnElement="G5" isMarkerVisible="false"><dc:Bounds x="2100" y="433" width="44" height="44"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="E2_di" bpmnElement="E2"><dc:Bounds x="2221" y="438" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="C4_di" bpmnElement="C4"><dc:Bounds x="2076" y="614" width="92" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="E3_di" bpmnElement="E3"><dc:Bounds x="2221" y="628" width="34" height="34"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="DOref_Alerta_di" bpmnElement="DOref_Alerta"><dc:Bounds x="487" y="520" width="26" height="38"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="DOref_Orden_di" bpmnElement="DOref_Orden"><dc:Bounds x="1879" y="350" width="26" height="38"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A1_di" bpmnElement="A1"><dc:Bounds x="409" y="136" width="150" height="58"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A2_di" bpmnElement="A2"><dc:Bounds x="677" y="511" width="134" height="58"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A3_di" bpmnElement="A3"><dc:Bounds x="1933" y="511" width="146" height="58"/></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="f1_di" bpmnElement="f1"><di:waypoint x="167" y="455"/><di:waypoint x="220" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f2_di" bpmnElement="f2"><di:waypoint x="312" y="455"/><di:waypoint x="360" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f3_di" bpmnElement="f3"><di:waypoint x="382" y="477"/><di:waypoint x="382" y="518"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f4_di" bpmnElement="f4"><di:waypoint x="404" y="455"/><di:waypoint x="452" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f5_di" bpmnElement="f5"><di:waypoint x="544" y="455"/><di:waypoint x="592" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f6_di" bpmnElement="f6"><di:waypoint x="614" y="433"/><di:waypoint x="614" y="196"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f7_di" bpmnElement="f7"><di:waypoint x="636" y="455"/><di:waypoint x="684" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f8_di" bpmnElement="f8"><di:waypoint x="660" y="165"/><di:waypoint x="730" y="165"/><di:waypoint x="730" y="424"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f9_di" bpmnElement="f9"><di:waypoint x="776" y="455"/><di:waypoint x="846" y="455"/><di:waypoint x="846" y="311"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f10_di" bpmnElement="f10"><di:waypoint x="892" y="280"/><di:waypoint x="916" y="280"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f11_di" bpmnElement="f11"><di:waypoint x="1008" y="280"/><di:waypoint x="1056" y="280"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f12_di" bpmnElement="f12"><di:waypoint x="1078" y="302"/><di:waypoint x="1078" y="424"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f13_di" bpmnElement="f13"><di:waypoint x="1100" y="280"/><di:waypoint x="1728" y="280"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f14_di" bpmnElement="f14"><di:waypoint x="1124" y="455"/><di:waypoint x="1172" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f15_di" bpmnElement="f15"><di:waypoint x="1216" y="455"/><di:waypoint x="1658" y="455"/><di:waypoint x="1658" y="614"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f16_di" bpmnElement="f16"><di:waypoint x="1194" y="477"/><di:waypoint x="1194" y="694"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f17_di" bpmnElement="f17"><di:waypoint x="1240" y="725"/><di:waypoint x="1288" y="725"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f18_di" bpmnElement="f18"><di:waypoint x="1332" y="725"/><di:waypoint x="1409" y="725"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f19_di" bpmnElement="f19"><di:waypoint x="1443" y="725"/><di:waypoint x="1496" y="725"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f20_di" bpmnElement="f20"><di:waypoint x="1588" y="725"/><di:waypoint x="1658" y="725"/><di:waypoint x="1658" y="676"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f21_di" bpmnElement="f21"><di:waypoint x="1310" y="703"/><di:waypoint x="1310" y="662"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f22_di" bpmnElement="f22"><di:waypoint x="1327" y="645"/><di:waypoint x="1380" y="645"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f23_di" bpmnElement="f23"><di:waypoint x="1472" y="645"/><di:waypoint x="1525" y="645"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f24_di" bpmnElement="f24"><di:waypoint x="1704" y="645"/><di:waypoint x="1774" y="645"/><di:waypoint x="1774" y="311"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f25_di" bpmnElement="f25"><di:waypoint x="1820" y="280"/><di:waypoint x="1844" y="280"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f26_di" bpmnElement="f26"><di:waypoint x="1936" y="280"/><di:waypoint x="2006" y="280"/><di:waypoint x="2006" y="424"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f27_di" bpmnElement="f27"><di:waypoint x="2052" y="455"/><di:waypoint x="2100" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f28_di" bpmnElement="f28"><di:waypoint x="2144" y="455"/><di:waypoint x="2221" y="455"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f29_di" bpmnElement="f29"><di:waypoint x="2122" y="477"/><di:waypoint x="2122" y="614"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="f30_di" bpmnElement="f30"><di:waypoint x="2168" y="645"/><di:waypoint x="2221" y="645"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="m1_di" bpmnElement="m1"><di:waypoint x="150" y="70"/><di:waypoint x="150" y="438"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="m2_di" bpmnElement="m2"><di:waypoint x="1194" y="756"/><di:waypoint x="1194" y="830"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="m3_di" bpmnElement="m3"><di:waypoint x="1426" y="830"/><di:waypoint x="1426" y="742"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="As_A1_di" bpmnElement="As_A1"><di:waypoint x="568" y="165"/><di:waypoint x="559" y="165"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="As_A2_di" bpmnElement="As_A2"><di:waypoint x="730" y="486"/><di:waypoint x="744" y="511"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="As_A3_di" bpmnElement="As_A3"><di:waypoint x="2006" y="486"/><di:waypoint x="2006" y="511"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DOA1_di" bpmnElement="DOA1"><di:waypoint x="498" y="486"/><di:waypoint x="498" y="520"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DOA2_di" bpmnElement="DOA2"><di:waypoint x="1890" y="311"/><di:waypoint x="1890" y="350"/></bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
