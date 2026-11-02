@@ -96,7 +96,7 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 
 **Limitaciones y errores detectados en el trabajo con IA**
 
-- La IA no puede crear el repositorio, el tablero ni los Pull Requests: eso lo realizó el grupo.
+- La IA no puede crear el repositorio, el tablero ni los Pull Requests: eso lo realizó el alumno.
 - El diagrama se generó por código y no con Bizagi.
 - El plazo de espera del proveedor (**48 h**) y la prioridad de las historias son **supuestos de planeación** a validar con Fadel S.A.; no son datos de la empresa.
 - Responsabilidad intelectual: el contenido fue revisado y es asumido por el alumno.
