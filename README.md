@@ -86,8 +86,6 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 
 ## 8. Declaración de uso de IA
 
-> Complementa la nota de transparencia incluida en el PDF de la entrega. **Todo lo que figura entre corchetes debe completarse o corregirse con lo que realmente se hizo antes de publicar.**
-
 **Herramientas:** Claude (Anthropic); en las Entregas 1 y 2 también Gemini y ChatGPT, según lo declarado en esos documentos.
 
 | # | Prompt (resumen) | Por qué se pidió así | Qué devolvió la IA | Corrección humana efectuada |
