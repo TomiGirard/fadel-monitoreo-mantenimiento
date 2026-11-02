@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | 📂 Repositorio | https://github.com/TomiGirard/fadel-monitoreo-mantenimiento |
-| 📋 Tablero ágil | https://github.com/users/TomiGirard/projects/projects/1 |
+| 📋 Tablero ágil | https://github.com/users/TomiGirard/projects/1 |
 
 ---
 
