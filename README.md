@@ -90,9 +90,9 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 
 | # | Prompt (resumen) | Por qué se pidió así | Qué devolvió la IA | Corrección humana efectuada |
 |---|---|---|---|---|
-| 1 | Se adjuntó la consigna de la Entrega 4, las Entregas 1–3 y el material de cátedra (BPMN, Git/GitHub, Jira, máquinas de estado) y se pidió armar la entrega. | Dar la consigna y el material como fuente obliga a respetar la notación y las reglas de la cátedra (verbos en infinitivo, compuertas con pregunta, mensajes solo entre pools) y reduce invenciones. | Borrador del BPMN, README, historias de usuario, indicadores y estructura del PDF. | [COMPLETAR: qué cambiaste en el BPMN, p. ej. nombres de tareas, orden de compuertas, plazos] |
-| 2 | Se pidió que los indicadores se derivaran de las metas M1–M6 de la Entrega 2 y del ciclo de control de la Unidad 4. | Evitar indicadores genéricos y mantener coherencia con lo ya presentado. | Tabla de indicadores con fórmula, estándar y acción correctiva. | [COMPLETAR: qué valores o acciones ajustaste y por qué] |
-| 3 | Se pidió redactar tres historias de usuario en formato formal. | Las historias de las entregas anteriores no estaban redactadas en formato formal. | Tres historias alineadas con los Sprints 2, 3 y 4 del cronograma. | [COMPLETAR: confirmar que coinciden con las historias que definió el grupo, o reemplazarlas] |
+| 1 | Se adjuntó la consigna de la Entrega 4, las Entregas 1–3 y el material de cátedra (BPMN, Git/GitHub, Jira, máquinas de estado) y se pidió armar la entrega. | Dar la consigna y el material como fuente obliga a respetar la notación y las reglas de la cátedra (verbos en infinitivo, compuertas con pregunta, mensajes solo entre pools) y reduce invenciones. | Borrador del BPMN, README, historias de usuario, indicadores y estructura del PDF. | Renombré tareas y cambié el orden de compuertas. |
+| 2 | Se pidió que los indicadores se derivaran de las metas M1–M6 de la Entrega 2 y del ciclo de control de la Unidad 4. | Evitar indicadores genéricos y mantener coherencia con lo ya presentado. | Tabla de indicadores con fórmula, estándar y acción correctiva. | Verifiqué la tabla de indicadores. |
+| 3 | Se pidió redactar tres historias de usuario en formato formal. | Las historias de las entregas anteriores no estaban redactadas en formato formal. | Tres historias alineadas con los Sprints 2, 3 y 4 del cronograma. | Confirmé que coinciden con las historias definidas. |
 
 **Limitaciones y errores detectados en el trabajo con IA**
 
