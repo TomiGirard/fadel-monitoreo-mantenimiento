@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | 📂 Repositorio | https://github.com/TomiGirard/fadel-monitoreo-mantenimiento |
-| 📋 Tablero ágil | https://github.com/users/TomiGirard/projects/[N] |
+| 📋 Tablero ágil | https://github.com/users/TomiGirard/projects/projects/1 |
 
 ---
 
@@ -74,8 +74,7 @@ Grupo n.º 12 · Docente titular: Prof. Gabriela Martínez · Tutores: Prof. Car
 Tipos usados: `docs`, `feat`, `fix`, `refactor`, `test`, `chore`.
 
 **Pull Requests:** cada rama se integra a `main` con un PR que explica *qué* se cambió, *por qué* y *cómo evaluarlo* (plantilla en `.github/`). Se requiere **al menos una revisión de un par** antes del *merge*.
-Evidencia: PR [#1](TomiGirard/fadel-monitoreo-mantenimiento).
-
+Evidencia: PR #13 – docs(bpmn): agregar diagrama del proceso de mantenimiento correctivo – revisado por @sa-e
 ## 6. Gestión del backlog
 
 Tablero: GitHub Projects con columnas **Por Hacer → En Progreso → Listo**. Las tres historias de usuario están en [`docs/historias-de-usuario.md`](docs/historias-de-usuario.md) y se vinculan a *issues* (`Closes #n` en los PR).
@@ -94,7 +93,7 @@ Indicadores, fórmulas, estándares y acciones correctivas en [`docs/indicadores
 | 2 | Se pidió que los indicadores se derivaran de las metas M1–M6 de la Entrega 2 y del ciclo de control de la Unidad 4. | Evitar indicadores genéricos y mantener coherencia con lo ya presentado. | Tabla de indicadores con fórmula, estándar y acción correctiva. | Verifiqué la tabla de indicadores. |
 | 3 | Se pidió redactar tres historias de usuario en formato formal. | Las historias de las entregas anteriores no estaban redactadas en formato formal. | Tres historias alineadas con los Sprints 2, 3 y 4 del cronograma. | Confirmé que coinciden con las historias definidas. |
 
-**Limitaciones y errores detectados en el trabajo con IA**
+**Limitaciones**
 
 - La IA no puede crear el repositorio, el tablero ni los Pull Requests: eso lo realizó el alumno.
 - El diagrama se generó por código y no con Bizagi.
